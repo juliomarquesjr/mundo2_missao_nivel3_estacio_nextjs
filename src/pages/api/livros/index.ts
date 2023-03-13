@@ -6,10 +6,10 @@ export const livros = new ControleLivro();
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
   const requestMethod = req.method;
-  const { livro, codigo_livro } = JSON.parse(req.body);
 
   switch (requestMethod) {
     case "POST":
+      const { livro } = JSON.parse(req.body);
       const novoLivro = new Livro(
         livro.codigo,
         livro.editora,
@@ -22,6 +22,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
       break;
 
     case "DELETE":
+      const { codigo_livro } = JSON.parse(req.body);
       livros.excluir(Number(codigo_livro));
       res.status(200).json(livros.obterLivros());
       break;
